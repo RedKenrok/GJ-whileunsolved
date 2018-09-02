@@ -1,0 +1,6 @@
+# Node
+node_modules/
+# Assets
+assets/
+# Build
+dst/

@@ -1,0 +1,27 @@
+{
+  "author": {
+    "name": "Ron Dekker",
+    "url": "https://rondekker.nl"
+  },
+  "name": "hoast",
+  "version": "0.1.0",
+  "description": "A modular file processor foccused on creating a simple ecosystem for task automation.",
+  "license": "Unlicened",
+  "homepage": "https://hoast.github.io",
+  "engines": {
+    "node": ">=7.8.0"
+  },
+  "main": "hoast.js",
+  "scripts": {
+    "build": "node hoast.js"
+  },
+  "dependencies": {
+    "clean-css": "^4.2.1",
+    "hoast": "^0.1.0",
+    "hoast-changed": "^0.1.0",
+    "hoast-convert": "^0.1.0",
+    "hoast-filter": "^0.1.0",
+    "html-minifier": "^3.5.20",
+    "inkjs": "^1.7.1"
+  }
+}

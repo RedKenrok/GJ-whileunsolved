@@ -1,0 +1,147 @@
+@keyframes fade {
+	0%   { opacity: 0; }
+	100% { opacity: 1; }
+}
+@-webkit-keyframes fade {
+	0%   { opacity: 0; }
+	100% { opacity: 1; }
+}
+@-moz-keyframes fade {
+	0%   { opacity: 0; }
+	100% { opacity: 1; }
+}
+@-o-keyframes fade {
+	0%   { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+body {
+	position: relative;
+	height: 100vh;
+	max-width: 800px;
+	margin: 0 auto;
+}
+body > .content {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: var(--spacing);
+    overflow: hidden;
+}
+
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+
+.fas, .fab {
+	padding: 0px;
+}
+
+#app {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+#buttons {
+	position: absolute;
+	height: var(--button-size);
+	width: 100%;
+	top: 0;
+	z-index: 10;
+}
+
+#input {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	z-index: 10;
+	
+	animation: fade 1s;
+	-webkit-animation: fade 1s;
+	-moz-animation: fade 1s;
+	-o-animation: fade 1s;
+}
+
+#input > button#recognition {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	
+	min-height: var(--button-size);
+	min-width: var(--button-size);
+	
+	border-radius: calc(var(--button-size) / 2);
+	color: var(--black);
+}
+#input > button#recognition:hover {
+	background-color: var(--black);
+	color: var(--white);
+}
+
+#input > input {
+	height: calc(var(--button-size) - 10px);
+	width: calc(100% - 18px);
+	padding: 4px 8px 4px 8px;
+	
+	border: solid 1px var(--grey-dark);
+	border-radius: calc(var(--button-size) / 2);
+	color: var(--black);
+}
+#input > input::-webkit-input-placeholder {
+	color: var(--grey-dark);
+}
+#input > input:focus {
+	border: solid 1px var(--black);
+	outline: none !important;
+}
+
+#messenger {
+	height: calc(100% - (var(--button-size) * 2) - 32px);
+	margin: 0 8px;
+	padding: 16px 0;
+	
+	overflow-y: scroll;
+	
+	list-style-type: none;
+	text-align: justify;
+}
+#messenger > li {
+	margin: 16px 0;
+	
+	text-indent: calc(var(--spacing) / 2);
+	font-size: var(--text-size);
+}
+#messenger > li:first-child {
+	margin-top: 0;
+}
+#messenger > li:last-child {
+	margin-bottom: 0;
+}
+
+#messenger > li.choice {
+	margin: 0;
+	
+	color: var(--grey-dark);
+	
+	cursor: pointer;
+}
+#messenger > li.choice:hover {
+	color: var(--black);
+}
+
+[id*="fade-"] {
+	position: relative;
+	min-height: var(--button-size);
+}
+#fade-top {
+	box-shadow: 0 16px 8px var(--white);
+}
+#fade-bottom {
+	box-shadow: 0 -16px 8px var(--white);
+}

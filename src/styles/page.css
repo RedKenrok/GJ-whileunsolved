@@ -1,0 +1,135 @@
+/* Variables */
+:root {
+	--white: #fff;
+	--black: #414141;
+	
+	--grey-light: #f1f1f1;
+	--grey: #c1c1c1;
+	--grey-dark: #a8a8a8;
+	
+	--spacing: 6.4em;
+	--text-size: 1.5em;
+	--button-size: 3em;
+}
+
+@media (max-width: 64em) {
+	:root {
+		--spacing: 3.2em;
+	}
+}
+@media (max-width: 48em) {
+	:root {
+		--spacing: 2.4em;
+	}
+}
+@media (max-width: 36em) {
+	:root {
+		--spacing: 1.3em;
+	}
+}
+
+/* Hide element */
+[hide], [hide=true] {
+	display: none;
+}
+
+/* Disable text selection */
+.disableSelection {
+	user-select: none;
+}
+
+/* Base settings */
+body {
+	font-weight: 400;
+    text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	
+	background-color: var(--white);
+	color: var(--black);
+}
+a {
+	color: var(--theme);
+	text-decoration: underline;
+}
+a:hover {
+	color: var(--theme-dark);
+}
+
+/* Text sizes and spacing */
+h1, h2, h3, h4, h5, h6 {
+	margin: 0 0 2px 0;
+	
+	text-align: left;
+}
+p {
+	text-align: justify;
+}
+h1 {
+	margin: 24px 0 0 0;
+	
+	font-size: 1.25rem;
+    text-transform: uppercase;
+}
+h2 {
+	margin: 16px 0 0 0;
+	
+	font-size: 1.1rem;
+}
+h3, h4, h5, h6, p {
+	margin: 12px 0 0 0;
+	
+	font-size: 1rem;
+}
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child,
+p:first-child {
+	margin-top: 0;
+}
+
+/* Buttons */
+button, .button, a.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	
+	min-height: var(--button-size);
+	min-width: var(--button-size);
+	border: 0;
+	padding: 0;
+	margin: 0;
+	
+	background-color: transparent;
+	border-radius: var(--corner-size);
+	color: var(--grey-dark);
+	
+	cursor: pointer;
+	text-decoration: none;
+	
+	background-image: none;
+	background-position: none;
+	background-repeat: none;
+	
+	transition: all 0.2s ease-in-out;
+}
+button:hover, .button:hover {
+	color: var(--black);
+}
+button > *, .button > * {
+	display: flex;
+	
+	color: inherit;
+	font-size: calc(var(--button-size) / 2.25);
+	
+	--temp: calc(var(--button-size) / 4);
+	padding: var(--temp) var(--temp) var(--temp) 0;
+}
+button > span, .button > span {
+	font-size: calc(var(--button-size) / 2);
+}
+button:focus, .button:focus {
+	outline: none !important;
+}

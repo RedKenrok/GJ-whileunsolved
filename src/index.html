@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-GB" dir="ltr">
+	<head>
+		<meta charset="UTF-8"/>
+		
+		<title>while(unsolved)</title>
+		<meta name="description" content="A murder mystery stuck in a loop."/>
+		<meta name="author" content="Ron Dekker"/>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#000">
+		
+		<!-- Icons -->
+		<link rel="icon" type="image/png" href="icons/16.png" sizes="16x16"/>
+		<link rel="icon" type="image/png" href="icons/32.png" sizes="32x32"/>
+		<link rel="icon" type="image/png" href="icons/64.png" sizes="64x64"/>
+		<link rel="icon" type="image/png" href="icons/128.png" sizes="128x128"/>
+		<link rel="icon" type="image/png" href="icons/256.png" sizes="256x256"/>
+		
+		<!-- Stylesheets -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" crossorigin="anonymous">
+		<link rel="stylesheet" href="styles/page.css">
+		<link rel="stylesheet" href="styles/app.css">
+		<style>
+			body {
+				font-family: monospace;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="content">
+			<!-- App -->
+			<div id="app">
+				<!-- links and buttons -->
+				<div id="buttons" class="disableSelection">
+					<!-- Developers portfolio -->
+					<a class="button left" href="https://rondekker.nl" title="Developers portfolio" target="_blank" rel="noopener noreferrer">
+						<span class="fas fa-address-card"></span>
+					</a>
+					<!-- Source code -->
+					<a class="button left" href="https://github.com/redkenrok/gj-whileunsolved" title="Source code" target="_blank" rel="noopener noreferrer">
+						<span class="fab fa-github"></span>
+					</a>
+					<!-- Itch.io page -->
+					<a class="button left" href="https://rondekker.itch.io/whileunsolved" title="Itch.io page" target="_blank" rel="noopener noreferrer">
+						<span class="fas fa-gamepad"></span>
+					</a>
+					<!-- Toggle fullscreen -->
+					<button id="fullscreen" class="right" title="Toggle fullscreen" hide>
+						<span class="fas fa-expand"></span>
+					</button>
+					<!-- Toggle sound -->
+					<button id="synthesis" class="right" title="Toggle sound" hide>
+						<span class="fas"></span>
+					</button>
+				</div>
+				<!-- Messenges overview -->
+				<div id="fade-top"></div>
+				<ul id="messenger"></ul>
+				<div id="fade-bottom"></div>
+				<!-- Input -->
+				<div id="input" class="disableSelection" class="bottom" hide>
+					<!-- Record button -->
+					<button id="recognition" class="right" title="Use speech recognition" hide>
+						<span class="fas fa-microphone"></span>
+					</button>
+					<!-- Field -->
+					<input id="field" title="Query input field" type="text" placeholder="Enter search query..."/>
+				</div>
+			</div>
+		</div>
+		<!-- Additional stylesheets -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/solid.css" integrity="sha384-VGP9aw4WtGH/uPAOseYxZ+Vz/vaTb1ehm1bwx92Fm8dTrE+3boLfF1SpAtB1z7HW" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/brands.css" integrity="sha384-rf1bqOAj3+pw6NqYrtaE1/4Se2NBwkIfeYbsFdtiR6TQz0acWiwJbv1IM/Nt/ite" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous">
+		<!-- Page scripts -->
+		<script>
+			// Change document title when not on foreground.
+			const documentTitle = `while(unsolved) _ʕ•ᴥ•_ʔ`;
+			document.addEventListener(`visibilitychange`, function() {
+				if (document.visibilityState === `hidden`) {
+					document.title = `ʕノ•ᴥ•ʔノ (pǝʌlosun)ǝlᴉɥʍ`;
+					return;
+				}
+				document.title = documentTitle;
+			});
+		</script>
+		<script src="scripts/fullscreen.js"></script>
+		<!-- App scripts -->
+		<script src="scripts/app/input.js"></script>
+		<script src="scripts/app/messenger.js"></script>
+		<script src="scripts/app/processor.js"></script>
+		<script src="scripts/app/recognition.js"></script>
+		<script src="scripts/app/synthesis.js"></script>
+		<!-- App library scripts -->
+		<script src="scripts/app/libraries/ink.js"></script>
+		<script src="scripts/app/libraries/jsonUtil.js"></script>
+		<script src="scripts/app/libraries/string.js"></script>
+	</body>
+</html>
