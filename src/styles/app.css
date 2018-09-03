@@ -42,6 +42,13 @@ body > .content {
 	padding: 0px;
 }
 
+.fade {
+	animation: fade 1s;
+	-webkit-animation: fade 1s;
+	-moz-animation: fade 1s;
+	-o-animation: fade 1s;
+}
+
 #app {
 	position: relative;
 	height: 100%;
@@ -61,11 +68,6 @@ body > .content {
 	width: 100%;
 	bottom: 0;
 	z-index: 10;
-	
-	animation: fade 1s;
-	-webkit-animation: fade 1s;
-	-moz-animation: fade 1s;
-	-o-animation: fade 1s;
 }
 
 #input > button#recognition {
@@ -135,13 +137,13 @@ body > .content {
 	color: var(--black);
 }
 
-[id*="fade-"] {
+[id*="gradient-"] {
 	position: relative;
 	min-height: var(--button-size);
 }
-#fade-top {
+#gradient-top {
 	box-shadow: 0 16px 8px var(--white);
 }
-#fade-bottom {
+#gradient-bottom {
 	box-shadow: 0 -16px 8px var(--white);
 }

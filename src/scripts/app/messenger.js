@@ -6,8 +6,8 @@ let messenger;
 	const choiceClassName = `choice`;
 	const listQuery = `#messenger > li`;
 	
-	const templateText = `<li>{0}</li>`;
-	const templateChoice = `<li class="${choiceClassName}"><span onclick="messenger.selected({0});">- {1}</span></li>`;
+	const templateText = `<li class="fade">{0}</li>`;
+	const templateChoice = `<li class="${choiceClassName} fade"><span onclick="messenger.selected({0});">- {1}</span></li>`;
 	
 	document.addEventListener(`DOMContentLoaded`, function() {
 		const removeElementsByClassName = function(className) {
