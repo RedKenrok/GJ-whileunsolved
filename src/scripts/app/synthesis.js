@@ -37,8 +37,8 @@ let synthesis;
 		const message = new SpeechSynthesisUtterance();
 		message.lang = `en-GB`;
 		message.volume = 0.5;
-		message.rate = 1.6;
-		message.pitch = 1.6;
+		message.rate = 1.5;
+		message.pitch = 1.25;
 		
 		synthesis.setDefaultVoice = function() {
 			// Get voices that match the message language.
