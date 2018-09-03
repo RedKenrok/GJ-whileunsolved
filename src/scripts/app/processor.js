@@ -8,9 +8,9 @@
 	const CHOICE_SEARCH_DATABASE = `Search database`;
 	
 	const SPEAK_DATABASE_START = [
-		`I opened up the search prompt and decided to look for...`,
-		`I grabbed my laptop and started to search for...`,
-		`From my laptop I decided to look up...`
+		`Just then I might have realized something and decided to check the database.`,
+		`"Aha!" I exclaimed as I decided to search through the database.`,
+		`Perhaps looking through the database could provide me with a new lead.`
 	];
 	const SPEAK_DATABASE_RESULT = [
 		`"Aha!" I exclaimed after seeing a result appear.`,
@@ -42,17 +42,10 @@
 				const output = function(text) {
 					// Output and sythezise text.
 					messenger.addText(text);
-					synthesis.speak(text);
+					if (synthesis) {
+						synthesis.speak(text);
+					}
 				};
-				
-				// Go to the next line when finsihed speaking.
-				const onSynthesisEnd = function() {
-					// Remove self after done.
-					synthesis.element.removeEventListener(`end`, onSynthesisEnd);
-					
-					// Go to next line.
-					next();
-				}
 				
 				const next = function() {
 					if (!story.canContinue && story.currentChoices.length === 0) {
@@ -87,7 +80,7 @@
 							
 							// Clear ongoing speech synthesis.
 							if (synthesis) {
-								synthesis.clear();
+								synthesis.clearQueue();
 							}
 							
 							// Get index and choice.
@@ -97,60 +90,55 @@
 							// Select choice in ink.
 							story.ChooseChoiceIndex(index);
 							
-							// Output option text.
-							let text = story.Continue().trim();
-							if (text !== null && text !== '') {
-								output(text);
-							}
-							
 							// Check if option is not special database search option.
-							if (choice.text === CHOICE_SEARCH_DATABASE) {
-								// Activate input field.
-								input.enable();
-								
-								// Output and sythezise transcript.
-								output(SPEAK_DATABASE_START[randomInt(SPEAK_DATABASE_START.length)]);
-								
-								const onInputEnd = function(event) {
-									// Remove self after done.
-									input.element.removeEventListener(`end`, onInputEnd);
-									// Deactivate input field.
-									input.disable();
-									
-									const query = event.detail.query.toLowerCase();
-									let entry = null;
-									for (let i = 0; i < database.length; i++) {
-										const terms = database[i].terms;
-										for (let j = 0; j < terms.length; j++) {
-											if (terms[j].toLowerCase() === query) {
-												entry = database[i];
-											}
-										}
-									}
-									
-									if (entry) {
-										// Output and sythezise transcript.
-										output(SPEAK_DATABASE_RESULT[randomInt(SPEAK_DATABASE_RESULT.length)]);
-										
-										// Set id to ink state.
-										story.variablesState.$(DATABASE_PREFIX.concat(entry.id.toLowerCase()), true);
-										
-										// Output database result.
-										output(entry.content);
-									} else {
-										// Get a empty message.
-										output(SPEAK_DATABASE_EMPTY[randomInt(SPEAK_DATABASE_EMPTY.length)]);
-									}
-									
-									// Continue story.
-									next();
-								};
-								input.element.addEventListener(`end`, onInputEnd);
+							if (choice.text !== CHOICE_SEARCH_DATABASE) {
+								next();
 								return;
 							}
 							
-							// Next.
-							next();
+							// Activate input field.
+							input.enable();
+							
+							// Output and sythezise transcript.
+							output(SPEAK_DATABASE_START[randomInt(SPEAK_DATABASE_START.length)]);
+							
+							const onInputEnd = function(event) {
+								// Remove self after done.
+								input.element.removeEventListener(`end`, onInputEnd);
+								// Deactivate input field.
+								input.disable();
+								
+								const query = event.detail.query.toLowerCase();
+								const matchingEntries = database.filter(function(entries) {
+									for (let i = 0; i < entries.terms.length; i++) {
+										if (entries.terms[i].toLowerCase() === query) {
+											return true;
+										}
+									}
+									return false;
+								});
+								
+								if (matchingEntries.length > 0) {
+									const matchingEntry = matchingEntries[0];
+									
+									// Output and sythezise transcript.
+									output(SPEAK_DATABASE_RESULT[randomInt(SPEAK_DATABASE_RESULT.length)]);
+									
+									// Set id to ink state.
+									story.variablesState.$(DATABASE_PREFIX.concat(matchingEntry.id.toLowerCase()), true);
+									
+									// Output database result.
+									output(matchingEntry.content);
+								} else {
+									// Get a empty message.
+									output(SPEAK_DATABASE_EMPTY[randomInt(SPEAK_DATABASE_EMPTY.length)]);
+								}
+								
+								// Continue story.
+								next();
+							};
+							
+							input.element.addEventListener(`end`, onInputEnd);
 						};
 						// Listen for an option to be selected.
 						messenger.element.addEventListener(`selected`, onChoiceSelected);

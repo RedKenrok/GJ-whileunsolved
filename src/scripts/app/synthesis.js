@@ -36,31 +36,9 @@ let synthesis;
 		// Create and configure base message.
 		const message = new SpeechSynthesisUtterance();
 		message.lang = `en-GB`;
-		message.volume = 0.5;
-		message.rate = 1.5;
 		message.pitch = 1.25;
-		
-		synthesis.setDefaultVoice = function() {
-			// Get voices that match the message language.
-			let compatibleVoices = voices.filter(function(voice) {
-				return voice.lang == message.lang;
-			});
-			
-			// Check if any found.
-			if (compatibleVoices.length == 0) {
-				return;
-			}
-			
-			// Set first in list as voice to use.
-			synthesis.setVoice(compatibleVoices[0]);
-		};
-		synthesis.setDefaultVoice();
-		
-		const speak = function(transcript) {
-			// Speak transcript.
-			message.text = transcript;
-			window.speechSynthesis.speak(message);
-		};
+		message.rate = 1.5;
+		message.volume = 0.5;
 		
 		const slice = function(text, length = 200) {
 			// Check if character at index is a space.
@@ -98,7 +76,7 @@ let synthesis;
 				// Find last index of space
 				end = lastIndexOfSpace(text, start, end);
 				if (end === -1) {
-					this.emit('error', 'Character count of single word is over the max length of ' + length + '.');
+					console.error(`Character count of single word is over the max length of ${length}.`);
 				}
 				
 				// Add to array
@@ -107,6 +85,30 @@ let synthesis;
 			}
 			return textSlices;
 		};
+		
+		const speak = function(transcript) {
+			// Call speak with a millisecond delay to resolve possible clearing queue issue.
+			setTimeout(function() {
+				message.text = transcript;
+				window.speechSynthesis.speak(message);
+			}, 250);
+		};
+		
+		synthesis.setDefaultVoice = function() {
+			// Get voices that match the message language.
+			let compatibleVoices = voices.filter(function(voice) {
+				return voice.lang == message.lang;
+			});
+			
+			// Check if any found.
+			if (compatibleVoices.length == 0) {
+				return;
+			}
+			
+			// Set first in list as voice to use.
+			synthesis.setVoice(compatibleVoices[0]);
+		};
+		synthesis.setDefaultVoice();
 		
 		window.speechSynthesis.onvoiceschanged = function() {
 			// Override voices with new async loaded voices.
@@ -118,7 +120,7 @@ let synthesis;
 		
 		message.onend = function() {
 			// Check if queue finished.
-			if (queue.length == 0) {
+			if (queue.length < 1) {
 				// Dispatch end event.
 				synthesis.element.dispatchEvent(new CustomEvent(`end`));
 				return;
@@ -137,10 +139,14 @@ let synthesis;
 			synthesis.element.dispatchEvent(new CustomEvent(`start`));
 		};
 		
-		synthesis.clear = function() {
+		synthesis.clearQueue = function() {
 			// Clear queue, and currently spoken text.
-			queue = [];
-			window.speechSynthesis.cancel();
+			if (queue.length > 0) {
+				queue = [];
+			}
+			if (window.speechSynthesis.speaking || window.speechSynthesis.paused) {
+				window.speechSynthesis.cancel();
+			}
 		};
 		
 		synthesis.getVoices = function() {
@@ -164,9 +170,9 @@ let synthesis;
 			// Divide transcript
 			transcript = slice(transcript, 200);
 			// Push all sections to queue.
-			for (let i = 0; i < transcript.length; i++) {
-				queue.push(transcript[i]);
-			}
+			transcript.forEach(function(segment) {
+				queue.push(segment);
+			});
 			
 			// Check if currently speaking.
 			if (window.speechSynthesis.speaking) {
@@ -184,7 +190,7 @@ let synthesis;
 			
 			// If muted.
 			if (isMuted) {
-				synthesis.clear();
+				synthesis.clearQueue();
 				
 				iconElement.classList.remove(iconOn);
 				iconElement.classList.add(iconOff);
