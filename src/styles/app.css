@@ -60,6 +60,7 @@ body > .content {
 	height: var(--button-size);
 	width: 100%;
 	top: 0;
+	
 	z-index: 10;
 }
 
@@ -67,6 +68,7 @@ body > .content {
 	position: absolute;
 	width: 100%;
 	bottom: 0;
+	
 	z-index: 10;
 }
 
@@ -140,6 +142,8 @@ body > .content {
 [id*="gradient-"] {
 	position: relative;
 	min-height: var(--button-size);
+	
+	z-index: 5;
 }
 #gradient-top {
 	box-shadow: 0 16px 8px var(--white);
