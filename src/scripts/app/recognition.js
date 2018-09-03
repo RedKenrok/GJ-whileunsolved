@@ -105,7 +105,7 @@ let recognition;
 			
 			// Cancel current synthesis
 			if (synthesis) {
-				synthesis.cancel();
+				synthesis.clear();
 			}
 			
 			// Clear transcript.

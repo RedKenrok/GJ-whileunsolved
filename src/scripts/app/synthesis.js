@@ -137,8 +137,9 @@ let synthesis;
 			synthesis.element.dispatchEvent(new CustomEvent(`start`));
 		};
 		
-		synthesis.cancel = function() {
-			// Cancel current message.
+		synthesis.clear = function() {
+			// Clear queue, and currently spoken text.
+			queue = [];
 			window.speechSynthesis.cancel();
 		};
 		
@@ -183,8 +184,7 @@ let synthesis;
 			
 			// If muted.
 			if (isMuted) {
-				synthesis.cancel();
-				queue = [];
+				synthesis.clear();
 				
 				iconElement.classList.remove(iconOn);
 				iconElement.classList.add(iconOff);

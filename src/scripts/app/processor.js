@@ -54,16 +54,6 @@
 					next();
 				}
 				
-				const listenToSynthesis = function() {
-					if (synthesis === null) {
-						next();
-						return;
-					}
-					
-					// After synthesizer finished call next.
-					synthesis.element.addEventListener(`end`, onSynthesisEnd);
-				};
-				
 				const next = function() {
 					if (!story.canContinue && story.currentChoices.length === 0) {
 						console.log(`End of story reached.`);
@@ -74,16 +64,13 @@
 						// Get line of text.
 						let text = story.Continue().trim();
 						
-						if (text === null || text === '') {
-							// Go to next line if nothing has to be said.
-							next();
-							return;
+						if (text) {
+							// Output text.
+							output(text);
 						}
 						
-						// Output text.
-						output(text);
-						// Wait for synthesis to complete or call next.
-						listenToSynthesis();
+						// Continue story.
+						next();
 						return;
 					}
 					
@@ -97,6 +84,11 @@
 						const onChoiceSelected = function(event) {
 							// Remove self after done.
 							messenger.element.removeEventListener(`selected`, onChoiceSelected);
+							
+							// Clear ongoing speech synthesis.
+							if (synthesis) {
+								synthesis.clear();
+							}
 							
 							// Get index and choice.
 							const index = event.detail.index;
@@ -150,8 +142,8 @@
 										output(SPEAK_DATABASE_EMPTY[randomInt(SPEAK_DATABASE_EMPTY.length)]);
 									}
 									
-									// Wait for synthesis to complete or call next.
-									listenToSynthesis();
+									// Continue story.
+									next();
 								};
 								input.element.addEventListener(`end`, onInputEnd);
 								return;
