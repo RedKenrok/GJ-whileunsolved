@@ -1,3 +1,5 @@
+![Gameplay gif](gameplay.gif)
+
 # while(unsolved)
 This story is a noir style text-based adventure game where you the player have to solve the crime you are accused of, but of course did not do.
 
