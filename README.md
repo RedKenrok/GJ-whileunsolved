@@ -1,6 +1,7 @@
 ![Gameplay gif](gameplay.gif)
 
 # while(unsolved)
+
 This story is a noir style text-based adventure game where you the player have to solve the crime you are accused of, but of course did not do.
 
 The project was made for the 2018 [Game Maker's Toolkit Jam](https://itch.io/jam/gmtk-2018) and [inkJam](https://itch.io/jam/inkjam). Which both were held during the first weekend of September. It is made for the browser and is made possible using Inkjs.
@@ -12,10 +13,5 @@ I am incredibly happy with the system I managed to botch together in such a shor
 All in all I just fell in love with the idea of a noir flick being narrated using the most obliviously robotic voice.
 
 ## Browser compatibility
+
 The project has been tested and developed with Chrome version 68 (64-bit for Windows) in mind. However other modern and up-to-date browser should yield similar results, although optional features might not work.
-
-## Play
-Visit [whileunsolved.rondekker.nl](https://whileunsolved.rondekker.nl) to play through the story.
-
-## Source
-Visit [the GitHub repository](https://github.com/redkenrok/gj-whileunsolved) to see the source code.
